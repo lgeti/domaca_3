@@ -7,7 +7,7 @@ class GroupDB {
     public static function getGroup($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT id, name FROM group 
+        $statement = $db->prepare("SELECT id, name FROM `group`
             WHERE id = :id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();

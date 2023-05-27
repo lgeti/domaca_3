@@ -3,6 +3,23 @@
 require_once "model/GroupDB.php";
 
 class GroupController {
+    public static function index() {
+        if (isset($_GET["id"])) {
+            $groupId = $_GET["id"];
+            $group = GroupDB::getGroup($groupId);
+            $recipes = RecipeDB::getRecipesByGroup($groupId);
+
+            ViewHelper::render("view/group-chat.php", [
+                "group" => $group,
+                "recipes" => $recipes
+            ]);
+        } else {
+            ViewHelper::render("view/group-selection.php", [
+                "groups" => GroupDB::getAllGroups()
+            ]);
+        }
+    }
+
     public function createGroup($groupName, $description) {
         // Validate input if needed
 

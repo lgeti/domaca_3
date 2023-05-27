@@ -58,5 +58,17 @@ class RecipeDB {
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();
     }
-
+    
+    public static function getRecipesByGroup($groupId) {
+        $db = DBInit::getInstance();
+    
+        $statement = $db->prepare("SELECT id, title, description, ingredients, instructions, group_id, user_id
+            FROM recipe
+            WHERE group_id = :group_id");
+        $statement->bindParam(":group_id", $groupId, PDO::PARAM_INT);
+        $statement->execute();
+    
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }

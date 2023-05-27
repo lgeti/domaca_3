@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><?= $group['name'] ?></h5>
                         <p class="card-text">Description: <?= $group['description'] ?></p>
-                        <a href="<?= BASE_URL ?>group-chat/<?= $group['id'] ?>" class="btn btn-primary">View Group</a>
+                        <a href="<?= BASE_URL . "group?id=" . $group['id'] ?>" class="btn btn-primary">View Group</a>
                     </div>
                 </div>
             <?php endforeach; ?>

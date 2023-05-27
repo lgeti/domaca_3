@@ -14,6 +14,9 @@ define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 $urls = [
+    "group" => function () {
+        GroupController::index();
+     },
     "user/register" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::registerUser();
