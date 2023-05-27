@@ -1,12 +1,8 @@
-<!-- view/group-selection.php -->
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Group Selection</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"></head>
 </head>
 <body>
     <div class="container">
@@ -19,7 +15,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title"><?= $group['name'] ?></h5>
-                        <p class="card-text">Description: <?= $group['description'] ?></p>
+                        <p class="card-text"><?= $group['description'] ?></p>
                         <a href="<?= BASE_URL . "group?id=" . $group['id'] ?>" class="btn btn-primary">View Group</a>
                     </div>
                 </div>
@@ -27,8 +23,6 @@
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (at the end of the body) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Search functionality
         const searchInput = document.querySelector('#search');
