@@ -1,7 +1,5 @@
 /* groupStyles.css */
 
-@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
-
 .container {
     display: flex;
     flex-direction: column;
@@ -48,7 +46,7 @@
 }
 
 /* Media Query for larger screens */
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .container {
         flex-direction: row;
         justify-content: center;
@@ -58,4 +56,4 @@
     .chat-container {
         margin-right: 20px;
     }
-}
+} */
