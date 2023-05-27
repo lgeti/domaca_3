@@ -46,7 +46,7 @@ $urls = [
     // Other routes...
     "" => function () {
         // Default route - redirect to login/register page
-        ViewHelper::redirect(BASE_URL . "user/login");
+        ViewHelper::redirect(BASE_URL . "group");
     },
 ];
 

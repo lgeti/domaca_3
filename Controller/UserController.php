@@ -1,5 +1,6 @@
 <?php
 
+
 require_once "model/UserDB.php";
 
 class UserController {
@@ -60,7 +61,17 @@ class UserController {
     public static function loginUser() {
         if (UserDB::validLoginAttempt($_POST["username"], $_POST["password"])) {
             // Set session or token for authentication
-            // ...
+            $user = UserDB::getUserByUsername($_POST["username"]);
+
+            // Start the session if it hasn't been started already
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            // Store the user_id in a session variable
+            $_SESSION["username"] = $_POST["username"];
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["authenticated"] = true;
             // Redirect to home page or display success message
             ViewHelper::redirect(BASE_URL . "group/selection");
         } else {

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,40 +25,45 @@
                             <span class="content">Hi, John!</span>
                         </div>
                     </div>
-
+                    <?php if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"]):?>
                     <form id="chat-form">
                         <div class="input-group mb-3">
                             <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
                             <button type="submit" class="btn btn-primary">Send</button>
                         </div>
                     </form>
+                    <?php else: ?>
+                        <!-- User is not logged in -->
+                        <p>Please <a href="user/login">login</a> to add recipes.</p>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="recipe-container">
-                    <h2>Add Recipe</h2>
-                    <form id="recipe-form" action="add-recipe" method="POST">
-                        <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Title:</label>
-                            <input type="text" id="title" name="title" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description:</label>
-                            <textarea id="description" name="description" class="form-control" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ingredients" class="form-label">Ingredients:</label>
-                            <textarea id="ingredients" name="ingredients" class="form-control" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="instructions" class="form-label">Instructions:</label>
-                            <textarea id="instructions" name="instructions" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Recipe</button>
-                    </form>
-
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <h2>Add Recipe</h2>
+                        <form id="recipe-form" action="add-recipe" method="POST">
+                            <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
+                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title:</label>
+                                <input type="text" id="title" name="title" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <textarea id="description" name="description" class="form-control" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ingredients" class="form-label">Ingredients:</label>
+                                <textarea id="ingredients" name="ingredients" class="form-control" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="instructions" class="form-label">Instructions:</label>
+                                <textarea id="instructions" name="instructions" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Recipe</button>
+                        </form>
+                    <?php endif; ?>
                     <h2>Recipes</h2>
                     <div id="recipes">
                         <?php foreach ($recipes as $recipe): ?>
@@ -69,6 +75,10 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
+                    <?php if (!isset($_SESSION['user_id'])): ?>
+                        <!-- User is not logged in -->
+                        <p>Please <a href="user/login">login</a> to add recipes.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
