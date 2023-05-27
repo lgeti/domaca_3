@@ -8,9 +8,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/domaca_3/index.php/group"><b>All groups</b></a>
                 </li>
+                <?php if (!isset($_SESSION["authenticated"]) || (!$_SESSION["authenticated"])):?>
                 <li class="nav-item">
                     <a class="nav-link" href="/domaca_3/index.php/user/login"><b>Login</b></a>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><b>Contact</b></a>
                 </li>
