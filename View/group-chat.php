@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Group Chat</title>
-    <style>
-        .recipe {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .recipe h3 {
-            margin-top: 0;
-        }
-    </style>
+    <title><?php echo $group['name']; ?></title>
+    <link rel="stylesheet" type="text/css" href="../style/groupStyles.css">
 </head>
 <body>
-    <h1>Group Chat</h1>
+    <h1 class="text-center mb-4"><?php echo $group['name']; ?></h1>
+    <div class="container">
+        
 
-    <div id="chat-messages">
-        <!-- Display chat messages here -->
-    </div>
-
-    <div id="recipes">
-        <?php foreach ($recipes as $recipe): ?>
-            <div class="recipe">
-                <h3><?php echo $recipe['title']; ?></h3>
-                <p><?php echo $recipe['description']; ?></p>
-                <p><strong>Ingredients:</strong> <?php echo $recipe['ingredients']; ?></p>
-                <p><strong>Instructions:</strong> <?php echo $recipe['instructions']; ?></p>
+        <div class="chat-container">
+            <h2>Chat Messages</h2>
+            <div id="chat-messages">
+                <!-- Display chat messages here -->
+                <div class="message">
+                    <span class="sender">John:</span>
+                    <span class="content">Hello, everyone!</span>
+                </div>
+                <div class="message">
+                    <span class="sender">Emma:</span>
+                    <span class="content">Hi, John!</span>
+                </div>
             </div>
-        <?php endforeach; ?>
-    </div>
 
-    <form id="chat-form">
-        <input type="text" id="message-input" placeholder="Type your message...">
-        <button type="submit">Send</button>
-    </form>
+            <form id="chat-form">
+                <input type="text" id="message-input" placeholder="Type your message...">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
+        <div class="recipe-container">
+            <h2>Recipes</h2>
+            <div id="recipes">
+                <?php foreach ($recipes as $recipe): ?>
+                    <div class="recipe">
+                        <h3><?php echo $recipe['title']; ?></h3>
+                        <p><?php echo $recipe['description']; ?></p>
+                        <p><strong>Ingredients:</strong> <?php echo $recipe['ingredients']; ?></p>
+                        <p><strong>Instructions:</strong> <?php echo $recipe['instructions']; ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
 
     <!-- Add your JavaScript code to handle chat functionality -->
     <script>

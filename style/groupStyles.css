@@ -1,0 +1,61 @@
+/* groupStyles.css */
+
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-container {
+    margin-bottom: 20px;
+}
+
+.recipe-container {
+    margin-bottom: 20px;
+}
+
+.recipe {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.recipe h3 {
+    margin-top: 0;
+}
+
+#chat-messages {
+    max-height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#chat-messages .message {
+    margin-bottom: 10px;
+}
+
+#chat-messages .message .sender {
+    font-weight: bold;
+}
+
+#chat-messages .message .content {
+    margin-top: 5px;
+}
+
+/* Media Query for larger screens */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .chat-container {
+        margin-right: 20px;
+    }
+}
