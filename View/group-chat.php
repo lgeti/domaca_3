@@ -30,18 +30,42 @@
         </div>
 
         <div class="recipe-container">
-            <h2>Recipes</h2>
-            <div id="recipes">
-                <?php foreach ($recipes as $recipe): ?>
-                    <div class="recipe">
-                        <h3><?php echo $recipe['title']; ?></h3>
-                        <p><?php echo $recipe['description']; ?></p>
-                        <p><strong>Ingredients:</strong> <?php echo $recipe['ingredients']; ?></p>
-                        <p><strong>Instructions:</strong> <?php echo $recipe['instructions']; ?></p>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+    <h2>Add Recipe</h2>
+    <form id="recipe-form" action="add-recipe" method="POST">
+        <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
         </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+        <div>
+            <label for="ingredients">Ingredients:</label>
+            <textarea id="ingredients" name="ingredients" required></textarea>
+        </div>
+        <div>
+            <label for="instructions">Instructions:</label>
+            <textarea id="instructions" name="instructions" required></textarea>
+        </div>
+        <button type="submit">Add Recipe</button>
+    </form>
+
+    <h2>Recipes</h2>
+    <div id="recipes">
+        <?php foreach ($recipes as $recipe): ?>
+            <div class="recipe">
+                <h3><?php echo $recipe['title']; ?></h3>
+                <p><?php echo $recipe['description']; ?></p>
+                <p><strong>Ingredients:</strong> <?php echo $recipe['ingredients']; ?></p>
+                <p><strong>Instructions:</strong> <?php echo $recipe['instructions']; ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
     </div>
 
     <!-- Add your JavaScript code to handle chat functionality -->

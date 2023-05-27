@@ -59,4 +59,24 @@ class GroupController {
 
         // Redirect or display success message
     }
+
+    public static function addRecipe() {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            // Get the form data
+            $title = $_POST["title"];
+            $description = $_POST["description"];
+            $ingredients = $_POST["ingredients"];
+            $instructions = $_POST["instructions"];
+            $group_id = $_POST["group_id"];
+            $user_id = 1; // Assuming a user ID, modify this based on your authentication system
+
+            // Insert the recipe into the database
+            RecipeDB::insertRecipe($title, $description, $ingredients, $instructions, $group_id, $user_id);
+
+            // Redirect back to the group chat page
+            header("Location: index.php?action=group-chat&id=" . $group_id);
+            exit;
+        }
+    }
+
 }
