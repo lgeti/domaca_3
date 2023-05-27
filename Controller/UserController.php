@@ -59,8 +59,6 @@ class UserController {
     
     public static function loginUser() {
         if (UserDB::validLoginAttempt($_POST["username"], $_POST["password"])) {
-            // Successful login, perform necessary actions (e.g., set session, redirect to home page, etc.)
-            // ...
             // Set session or token for authentication
             // ...
             // Redirect to home page or display success message
