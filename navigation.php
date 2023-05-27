@@ -9,7 +9,7 @@
                     <a class="nav-link" href="/domaca_3/index.php/group"><b>All groups</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><b>About</b></a>
+                    <a class="nav-link" href="/domaca_3/index.php/user/login"><b>Login</b></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><b>Contact</b></a>
