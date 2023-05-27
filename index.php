@@ -20,9 +20,7 @@ $urls = [
      "add-recipe" => function () {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             RecipeController::createRecipe($_POST["title"],$_POST["description"],$_POST["ingredients"],$_POST["instructions"],$_POST["group_id"],$_POST["user_id"]);
-        } else {
-            // Handle GET request for add-recipe.php if needed
-        }
+        } 
     },
     "group/selection" => function () {
         GroupController::showGroupSelection();

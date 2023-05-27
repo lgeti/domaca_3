@@ -1,5 +1,3 @@
-<!-- view/user-login-form.php -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +6,7 @@
     <link rel="stylesheet" href="/domaca_3/style/loginregisterStyles.css">
 </head>
 <body>
+    <?php include 'navigation.php'; ?>
     <div class="container">
         <h1 class="mt-5">Login</h1>
         <?php if (isset($errorMessage)): ?>
@@ -27,5 +26,6 @@
         <p class="mt-3">Don't have an account? <a href="<?= BASE_URL ?>user/register">Register here</a></p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
