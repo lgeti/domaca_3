@@ -7,29 +7,47 @@ class UserController {
     public static function registerUser() {
         // Validate input data (e.g., check if username is unique, password requirements, etc.)
         if (empty($_POST["username"]) || empty($_POST["password"])) {
-            // Handle invalid input, display error message, redirect to registration page, etc.
-            // ...
             ViewHelper::render("view/user-register.php", [
                 "errorMessage" => "Missing username or password"
             ]);
             return ;
         }
 
+        // Validate username format (alphanumeric characters only)
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $_POST["username"])) {
+            ViewHelper::render("view/user-register.php", [
+                "errorMessage" => "Invalid username format. Only alphanumeric characters are allowed."
+            ]);
+            return;
+        }
+
         // Check if the username is already taken
         if (UserDB::getUserByUsername($_POST["username"]) !== null) {
-            // Handle username already exists, display error message, redirect to registration page, etc.
-            // ...
             ViewHelper::render("view/user-register.php", [
                 "errorMessage" => "Username taken"
             ]);
             return ;
         }
 
+        // Validate password length (minimum 8 characters)
+        if (strlen($_POST["password"]) < 8) {
+            ViewHelper::render("view/user-register.php", [
+                "errorMessage" => "Password must be at least 8 characters long"
+            ]);
+            return;
+        }
+
+        // Check if password and confirm_password match
+        if ($_POST["password"] !== $_POST["confirm_password"]) {
+            ViewHelper::render("view/user-register.php", [
+                "errorMessage" => "Password and confirm password do not match"
+            ]);
+            return;
+        }
+
         // Call the UserDB method to insert the user into the database
         UserDB::insertUser($_POST["username"], $_POST["password"]);
         
-        // Optionally, you can perform additional actions after successful registration (e.g., redirect to login page, send email confirmation, etc.)
-        // ...
         // Redirect to login page or display success message
         ViewHelper::redirect("login");
     }
