@@ -66,4 +66,17 @@ class UserDB {
             return null; // Return null if no user record is found
         }
     }
+
+    // Returns true if a valid combination of a username and a password are provided.
+    public static function validLoginAttempt($username, $password) {
+        $dbh = DBInit::getInstance();
+
+        $query = "SELECT COUNT(id) FROM user WHERE username = :username AND password = :password";
+        $stmt = $dbh->prepare($query);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":password", $password);
+        $stmt->execute();
+
+        return $stmt->fetchColumn(0) == 1;
+    }
 }

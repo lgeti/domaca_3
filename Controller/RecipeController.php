@@ -1,6 +1,6 @@
 <?php
 
-require_once "models/RecipeDB.php";
+require_once "model/RecipeDB.php";
 
 class RecipeController {
     public function createRecipe($title, $description, $ingredients, $instructions, $groupId, $userId) {

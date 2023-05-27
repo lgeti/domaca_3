@@ -1,6 +1,6 @@
 <?php
 
-require_once "models/GroupDB.php";
+require_once "model/GroupDB.php";
 
 class GroupController {
     public function createGroup($groupName, $description) {
@@ -26,6 +26,14 @@ class GroupController {
         GroupDB::updateGroup($groupId, $groupName, $description);
 
         // Redirect or display success message
+    }
+
+    public static function showGroupSelection() {
+        // Retrieve the groups from the database or any other source
+        $groups = GroupDB::getAllGroups();
+
+        // Render the view and pass the groups data
+        ViewHelper::render("view/group-selection.php", ["groups" => $groups]);
     }
 
     public function deleteGroup($groupId) {

@@ -1,6 +1,6 @@
 <?php
 
-require_once "models/MessageDB.php";
+require_once "model/MessageDB.php";
 
 class MessageController {
     public function sendMessage($groupId, $userId, $message) {

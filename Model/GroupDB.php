@@ -48,4 +48,14 @@ class GroupDB {
         $statement->execute();
     }
 
+    public static function getAllGroups() {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT id, name, description FROM `group`");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

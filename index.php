@@ -2,6 +2,7 @@
 
 session_start();
 
+require_once("ViewHelper.php");
 require_once("controller/UserController.php");
 require_once("controller/GroupController.php");
 require_once("controller/RecipeController.php");
@@ -22,45 +23,25 @@ $urls = [
     },
     "user/login" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            UserController::login();
+            UserController::loginUser();
         } else {
             UserController::showLoginForm();
         }
     },
     "user/logout" => function () {
-        UserController::logout();
+        UserController::logoutUser();
     },
-    "group/create" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            GroupController::create();
-        } else {
-            GroupController::showCreationForm();
-        }
+    "group/selection" => function () {
+        GroupController::showGroupSelection();
     },
-    "group/view" => function () {
-        GroupController::view();
-    },
-    "group/join" => function () {
-        GroupController::join();
-    },
-    "recipe/add" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            RecipeController::add();
-        } else {
-            RecipeController::showAddForm();
-        }
-    },
-    "recipe/view" => function () {
-        RecipeController::view();
-    },
-    "message/send" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            MessageController::send();
-        } else {
-            MessageController::showSendForm();
-        }
+    "group/selection" => function () {
+        GroupController::showGroupSelection();
     },
     // Other routes...
+    "" => function () {
+        // Default route - redirect to login/register page
+        ViewHelper::redirect(BASE_URL . "user/login");
+    },
 ];
 
 try {
