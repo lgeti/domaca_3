@@ -20,13 +20,64 @@ class GroupController {
         }
     }
 
-    public function createGroup($groupName, $description) {
-        // Validate input if needed
+    public static function createGroupForm() {
+        ViewHelper::render("view/group-create.php");
+    }
 
+    public static function createGroup() {
+        // Validate input if needed
+        // Mandatory Fields
+        if (empty($_POST["groupName"])) {
+            ViewHelper::render("view/group-create.php", [
+                "errorMessage" => "Missing group name."
+            ]);
+            return;
+        }
+        $groupName = $_POST["groupName"];
+
+        if (!preg_match('/^[a-zA-Z0-9\s]+$/', $groupName)) {
+            ViewHelper::render("view/group-create.php", [
+                "errorMessage" => "Invalid group name format. Only alphanumeric characters and spaces are allowed."
+            ]);
+            return;
+        }
+
+        if (GroupDB::isGroupNameTaken($groupName)) {
+            ViewHelper::render("view/group-create.php", [
+                "errorMessage" => "Group name is already taken. Please choose a different group name."
+            ]);
+            return;
+        }
+
+        if (strlen($groupName) > 255) {
+            ViewHelper::render("view/group-create.php", [
+                "errorMessage" => "Group name should not exceed 255 characters."
+            ]);
+            return;
+        }
+
+        if (!empty($_POST["description"])) {
+            $description = $_POST["description"];
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $description)) {
+                ViewHelper::render("view/group-create.php", [
+                    "errorMessage" => "Invalid group description format. Only alphanumeric characters and spaces are allowed."
+                ]);
+                return;
+            }
+
+            if (strlen($description) > 255) {
+                ViewHelper::render("view/group-create.php", [
+                    "errorMessage" => "Description should not exceed 255 characters."
+                ]);
+                return;
+           }
+        }
+        
         // Create a new group
         GroupDB::insertGroup($groupName, $description);
 
         // Redirect or display success message
+        ViewHelper::redirect("selection");
     }
 
     public function getGroup($groupId) {

@@ -25,6 +25,13 @@ $urls = [
     "group/selection" => function () {
         GroupController::showGroupSelection();
     },
+    "group/create" => function () {
+        if ($_SERVER["REQUEST_METHOD"] === "POST"): 
+            GroupController::createGroup();
+        else:
+            GroupController::createGroupForm();
+        endif;
+    },
     "user/register" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::registerUser();

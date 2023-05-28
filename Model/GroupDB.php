@@ -21,12 +21,13 @@ class GroupDB {
         }
     }
 
-    public static function insertGroup($name) {
+    public static function insertGroup($name, $description) {
         $db = DBInit::getInstance();
-
-        $statement = $db->prepare("INSERT INTO group (name)
-            VALUES (:name)");
+    
+        $statement = $db->prepare("INSERT INTO `group` (name, description)
+            VALUES (:name, :description)");
         $statement->bindParam(":name", $name);
+        $statement->bindParam(":description", $description);
         $statement->execute();
     }
 
@@ -57,5 +58,16 @@ class GroupDB {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function isGroupNameTaken($name) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT COUNT(*) FROM `group` WHERE name = :name");
+        $statement->bindParam(":name", $name);
+        $statement->execute();
+
+        $count = $statement->fetchColumn();
+
+        return $count > 0;
+    }
 
 }

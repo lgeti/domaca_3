@@ -9,6 +9,12 @@
     <div class="container">
         <h1 class="mt-5">Group Selection</h1>
         <div class="mb-3">
+            <a href="<?= BASE_URL . "group/create" ?>" class="btn btn-primary">Create a Group</a>
+        </div>
+        <?php if (isset($errorMessage)): ?>
+            <div class="alert alert-danger"><?= $errorMessage ?></div>
+        <?php endif; ?>
+        <div class="mb-3">
             <input type="text" id="search" class="form-control" placeholder="Search Groups">
         </div>
         <div id="groupList">
