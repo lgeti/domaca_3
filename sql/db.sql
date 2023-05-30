@@ -51,14 +51,22 @@ INSERT INTO `recipe` (`title`, `description`, `ingredients`, `instructions`, `gr
 ('Vegetable Stir-Fry', 'Quick and healthy vegetable stir-fry', '2 cups mixed vegetables (broccoli, bell peppers, carrots, snap peas), 2 cloves garlic (minced), 2 tbsp soy sauce, 1 tbsp sesame oil, 1 tbsp olive oil, 1 tsp ginger (minced), salt and pepper to taste', '1. Heat olive oil in a large skillet or wok over medium-high heat. 2. Add minced garlic and ginger, and cook for 1 minute. 3. Add mixed vegetables and stir-fry for 3-5 minutes, until tender-crisp. 4. In a small bowl, whisk together soy sauce, sesame oil, salt, and pepper. 5. Pour the sauce over the vegetables and stir to coat evenly. 6. Cook for an additional 1-2 minutes. 7. Serve hot.', 3, 2),
 ('Spaghetti Bolognese', 'Classic Italian pasta dish', '8 oz spaghetti, 1 lb ground beef, 1 onion (chopped), 2 cloves garlic (minced), 1 can crushed tomatoes, 2 tbsp tomato paste, 1 tsp dried basil, 1 tsp dried oregano, salt and pepper to taste, grated Parmesan cheese (for serving)', '1. Cook spaghetti according to package instructions. 2. In a large skillet, brown ground beef over medium heat. 3. Add chopped onion and minced garlic, and cook until onion is translucent. 4. Stir in crushed tomatoes, tomato paste, dried basil, dried oregano, salt, and pepper. Simmer for 15-20 minutes. 5. Serve the Bolognese sauce over cooked spaghetti. 6. Sprinkle with grated Parmesan cheese before serving.', 1, 3);
 
+-- Create the Chat table
+CREATE TABLE IF NOT EXISTS `chat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`group_id`) REFERENCES `group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- Create the message table
 CREATE TABLE IF NOT EXISTS `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL,
+  `chat_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`group_id`) REFERENCES `group` (`id`),
+  FOREIGN KEY (`chat_id`) REFERENCES `chat` (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
