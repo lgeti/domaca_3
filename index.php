@@ -6,7 +6,6 @@ require_once("ViewHelper.php");
 require_once("controller/UserController.php");
 require_once("controller/GroupController.php");
 require_once("controller/RecipeController.php");
-require_once("controller/MessageController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");

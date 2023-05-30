@@ -14,33 +14,26 @@
             <div class="col-md-6">
                 <div class="chat-container">
                     <h2>Chat Messages</h2>
-                    <div id="chat-messages">
+                    <ul id="chat-messages">
                         <!-- Display chat messages here -->
-                        <div class="message">
-                            <span class="sender">John:</span>
-                            <span class="content">Hello, everyone!</span>
-                        </div>
-                        <div class="message">
-                            <span class="sender">Emma:</span>
-                            <span class="content">Hi, John!</span>
-                        </div>
-                    </div>
+                    </ul>
                     <?php if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"]):?>
                     <form id="chat-form">
                         <div class="input-group mb-3">
                             <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button id="button" type="submit" class="btn btn-primary">Send</button>
                         </div>
                     </form>
                     <?php else: ?>
                         <!-- User is not logged in -->
-                        <p>Please <a href="user/login">login</a> to add recipes.</p>
+                        <p>Please <a href="user/login">login</a> to chat.</p>
                     <?php endif; ?>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="recipe-container">
-                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (isset($_SESSION['user_id'])):
+                        $username = $_SESSION['username']; ?>
                         <h2>Add Recipe</h2>
                         <form id="recipe-form" action="add-recipe" method="POST">
                             <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
@@ -84,25 +77,41 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> -->
+    <script src="<?= "../assets/jquery-3.2.1.min.js" ?>"></script>
     <script>
-        // Example JavaScript code for handling chat functionality
-        // You will need to customize this code based on your requirements
+        "use strict"
+        $(document).ready(() => {
+            // Web socket
+            const conn = new WebSocket('ws://localhost:9999');
+            conn.onopen = function(e) {
+                console.log("Connection established!");
+            };
+            conn.onmessage = function(event) {
+                const ul = $("#chat-messages")
+                const li = document.createElement("li")
+                const data = JSON.parse(event.data)
+                li.innerText = `${data.user}: ${data.message}`
+                ul.append(li);
+            };
 
-        // Get the chat form element
-        const chatForm = document.getElementById('chat-form');
+            $("#chat-form").submit(event => {
+                event.preventDefault();
+                const textarea = $("#message-input");
+                const message = textarea.val().trim();
 
-        // Add an event listener to submit the form
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Get the message input value
-            const messageInput = document.getElementById('message-input');
-            const message = messageInput.value;
-            // TODO: Handle sending the message to the server and updating the chat messages
-            // You can use AJAX, fetch, or websockets to send the message to the server
-            // and update the chat messages dynamically without refreshing the page.
-            // After sending the message, you can clear the input field:
-            messageInput.value = '';
+                if (message == "") {
+                    return;
+                }
+
+                textarea.val("");
+                textarea.focus();
+
+                let user = "<?php echo $username; ?>";
+                console.log(user);
+                // send data
+                conn.send(JSON.stringify({ user, message }));
+            });
         });
     </script>
 
