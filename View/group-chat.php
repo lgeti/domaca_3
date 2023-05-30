@@ -78,42 +78,46 @@
         </div>
     </div>
 
+    <?php $loggedIn = isset($_SESSION['username']) ? true : false; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="<?= "../assets/jquery-3.2.1.min.js" ?>"></script>
     <script>
+
         "use strict"
-        $(document).ready(() => {
-            // Web socket
-            const conn = new WebSocket('ws://localhost:9999');
-            conn.onopen = function(e) {
-                console.log("Connection established!");
-            };
-            conn.onmessage = function(event) {
-                const ul = $("#chat-messages")
-                const li = document.createElement("li")
-                const data = JSON.parse(event.data)
-                li.innerText = `${data.user}: ${data.message}`
-                ul.append(li);
-            };
+        <?php if ($loggedIn): ?>
+            $(document).ready(() => {
+                // Web socket
+                const conn = new WebSocket('ws://localhost:9999');
+                conn.onopen = function(e) {
+                    console.log("Connection established!");
+                };
+                conn.onmessage = function(event) {
+                    const ul = $("#chat-messages")
+                    const li = document.createElement("li")
+                    const data = JSON.parse(event.data)
+                    li.innerText = `${data.user}: ${data.message}`
+                    ul.append(li);
+                };
 
-            $("#chat-form").submit(event => {
-                event.preventDefault();
-                const textarea = $("#message-input");
-                const message = textarea.val().trim();
+                $("#chat-form").submit(event => {
+                    event.preventDefault();
+                    const textarea = $("#message-input");
+                    const message = textarea.val().trim();
 
-                if (message == "") {
-                    return;
-                }
+                    if (message == "") {
+                        return;
+                    }
 
-                textarea.val("");
-                textarea.focus();
+                    textarea.val("");
+                    textarea.focus();
 
-                let user = "<?php echo $username; ?>";
-                console.log(user);
-                // send data
-                conn.send(JSON.stringify({ user, message }));
+                    let user = "<?php echo $username; ?>";
+                    console.log(user);
+                    // send data
+                    conn.send(JSON.stringify({ user, message }));
+                });
             });
-        });
+        <?php endif; ?>
     </script>
 
 </body>
