@@ -12,10 +12,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Insert data into the user table
 INSERT INTO `user` (`username`, `password`) VALUES
-('john', 'password123'),
-('emma', 'securepass'),
-('mark', 'letmein'),
-('sarah', '123456');
+('pero', 'trapero'),
+('risto', 'traktoristo'),
+('riki', 'm@rtin').
 
 -- Create the group table
 CREATE TABLE IF NOT EXISTS `group` (
