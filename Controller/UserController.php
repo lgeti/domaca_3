@@ -72,7 +72,7 @@ class UserController {
             $_SESSION["username"] = $_POST["username"];
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["authenticated"] = true;
-            // Redirect to home page or display success message
+            // Redirect to home page
             ViewHelper::redirect(BASE_URL . "group/selection");
         } else {
             ViewHelper::render("view/user-login.php", [
@@ -87,11 +87,11 @@ class UserController {
 
     public static function logoutUser() {
         // Perform necessary actions to log out the user (e.g., clear session, redirect to login page, etc.)
-        // ...
-        // Clear session or token for authentication
-        // ...
-        // Redirect to login page or display success message
-        // ...
+        session_unset();
+        session_destroy();
+
+        // Redirect to login page
+        ViewHelper::redirect("login");
     }
 
     public function deleteUser($userId) {

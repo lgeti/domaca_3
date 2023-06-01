@@ -13,6 +13,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/domaca_3/index.php/user/login"><b>Login</b></a>
                 </li>
+                <?php else: ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/domaca_3/index.php/user/logout"><b>Logout</b></a>
+                </li>
                 <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><b>Contact</b></a>
