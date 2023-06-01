@@ -2,9 +2,9 @@
 
 class DBInit {
 
-    private static $host = "localhost";
-    private static $user = "root";
-    private static $password = "";
+    private static $host = "recipesi.database.windows.net";
+    private static $user = "thecook";
+    private static $password = "Cookingitup1";
     private static $schema = "recipesi";
     private static $instance = null;
 
