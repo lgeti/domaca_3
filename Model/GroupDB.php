@@ -29,6 +29,8 @@ class GroupDB {
         $statement->bindParam(":name", $name);
         $statement->bindParam(":description", $description);
         $statement->execute();
+
+        return $db->lastInsertId();
     }
 
     public static function updateGroup($id, $name) {

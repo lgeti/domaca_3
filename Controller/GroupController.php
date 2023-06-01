@@ -73,11 +73,15 @@ class GroupController {
            }
         }
         
-        // Create a new group
-        GroupDB::insertGroup($groupName, $description);
+        //Get group
+        $groupId = GroupDB::insertGroup($groupName, $description);
+        $group = GroupDB::getGroup($groupId);
+            $recipes = RecipeDB::getRecipesByGroup($groupId);
 
-        // Redirect or display success message
-        ViewHelper::redirect("selection");
+            ViewHelper::render("view/group-chat.php", [
+                "group" => $group,
+                "recipes" => $recipes
+            ]);
     }
 
     public function getGroup($groupId) {
