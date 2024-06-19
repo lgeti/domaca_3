@@ -2,10 +2,10 @@
 
 class DBInit {
 
-    private static $host = "localhost";
-    private static $user = "root";
-    private static $password = "";
-    private static $schema = "recipesi";
+    private static $host;
+    private static $user;
+    private static $password;
+    private static $schema;
     private static $instance = null;
 
     private function __construct() {
@@ -25,19 +25,20 @@ class DBInit {
      */
     public static function getInstance() {
         if (!self::$instance) {
-            $config = "mysql:host=" . self::$host
-                    . ";dbname=" . self::$schema;
-            $options = array(
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_PERSISTENT => true,
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-            );
+            self::$host = getenv('DB_HOST');
+            self::$user = getenv('DB_USER');
+            self::$password = getenv('DB_PASSWORD');
+            self::$schema = getenv('DB_SCHEMA');
 
-            self::$instance = new PDO($config, self::$user, self::$password, $options);
+            $config = "sqlsrv:server=" . self::$host
+                    . ";Database=" . self::$schema;
+            try {
+                self::$instance = new PDO($config, self::$user, self::$password);
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Error connecting to SQL Server: " . $e->getMessage());
+            }
         }
-
         return self::$instance;
     }
-
 }
