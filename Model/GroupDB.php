@@ -7,7 +7,7 @@ class GroupDB {
     public static function getGroup($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT id, name FROM `group`
+        $statement = $db->prepare("SELECT id, name FROM [group]
             WHERE id = :id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();
@@ -24,7 +24,7 @@ class GroupDB {
     public static function insertGroup($name, $description) {
         $db = DBInit::getInstance();
     
-        $statement = $db->prepare("INSERT INTO `group` (name, description)
+        $statement = $db->prepare("INSERT INTO [group] (name, description)
             VALUES (:name, :description)");
         $statement->bindParam(":name", $name);
         $statement->bindParam(":description", $description);
@@ -36,7 +36,7 @@ class GroupDB {
     public static function updateGroup($id, $name) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("UPDATE group SET name = :name
+        $statement = $db->prepare("UPDATE [group] SET name = :name
             WHERE id = :id");
         $statement->bindParam(":name", $name);
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
@@ -46,7 +46,7 @@ class GroupDB {
     public static function deleteGroup($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("DELETE FROM group WHERE id = :id");
+        $statement = $db->prepare("DELETE FROM [group] WHERE id = :id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();
     }
@@ -54,7 +54,7 @@ class GroupDB {
     public static function getAllGroups() {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT id, name, description FROM `group`");
+        $statement = $db->prepare("SELECT id, name, description FROM [group]");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -63,7 +63,7 @@ class GroupDB {
     public static function isGroupNameTaken($name) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT COUNT(*) FROM `group` WHERE name = :name");
+        $statement = $db->prepare("SELECT COUNT(*) FROM [group] WHERE name = :name");
         $statement->bindParam(":name", $name);
         $statement->execute();
 
